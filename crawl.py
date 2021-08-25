@@ -22,18 +22,21 @@ def sample_app(n:int):
         return sample #
 
 
-def steam_spy_get(appid:int):
-    try:
-        appid = str(appid)
+def steam_spy_connect(appid:int):
 
-        headers = {
-        "user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 UOS"
-        }
-        url = "http://steamspy.com/api.php?request=appdetails&appid=" + appid
-        response = requests.get(url)
-        return response.text
-    except:
-        return None
+    appid = str(appid)
+
+    headers = {
+    "user-agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36 UOS"
+    }
+    url = "http://steamspy.com/api.php?request=appdetails&appid=" + appid
+    response = requests.get(url)
+    status = response.status_code
+
+
+    return [response,status]
+
+
     # print(type(response.text))
     # print(response.text)  v
 
@@ -106,15 +109,17 @@ def play_tracker_get_data(url:str):
 #         redis.hset(i["appid"],mapping=data)
 #         print("获取成功，已加入数据库")
 #         time.sleep(1)
-def log(status_fail,appid):
+def log(status_fail,appid,spy_status):
         with open("time.json","r") as file:
             log = json.loads(file.read())
 
         if status_fail:
             log['Fail'] += 1
             log['Fail_id'].append(appid)
+            log['spy_status'] = spy_status
         else:
             log['Success'] += 1
+            log['spy_status'] = spy_status
             print("log!")
         with open("time.json","w") as file:
 
@@ -138,24 +143,27 @@ def crawl():
 
         app_list = sample_app(100)
         for app in app_list:
-            # steam_spy_get(app['appid'])
+            spy,spy_status = steam_spy_connect(app['appid'])
+
             url = play_tracker_get_url(app['name'])
             appid = app['appid']
             if check_exist(appid,redis):
-                if not url:
+                if not url or spy_status != 200:
                     Fail = True
                 else:
+                    spy_data = json.loads(spy.text)
                     data = play_tracker_get_data(url)
-                    if not data:
+                    if not data or not spy_data:
                         Fail = True
                     else:
-                        redis.hset(appid,mapping=data)
+                        spy_data.update(data)
+                        redis.hset(appid,mapping=spy_data)
                         print("success",Fail)
 
-                log(Fail,appid)
+                log(Fail,appid,spy_status)
                 time.sleep(1)
             else:
                 pass
             Fail = False
 
-# crawl()
+crawl()
