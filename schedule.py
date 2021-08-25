@@ -1,7 +1,7 @@
 from multiprocessing import Process
 from web_server import app
 from crawl import *
-import signal
+
 
 
 def app_run():
