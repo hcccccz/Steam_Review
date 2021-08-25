@@ -157,7 +157,7 @@ def crawl():
                         Fail = True
                     else:
                         spy_data.update(data)
-                        redis.hset(appid,mapping=spy_data)
+                        redis.hset(appid,mapping=str(spy_data))
                         print("success",Fail)
 
                 log(Fail,appid,spy_status)
