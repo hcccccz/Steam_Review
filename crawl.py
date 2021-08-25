@@ -110,7 +110,7 @@ def play_tracker_get_data(url:str):
 #         print("获取成功，已加入数据库")
 #         time.sleep(1)
 def log(status_fail,appid,spy_status):
-        with open("time.json","r") as file:
+        with open("log.json","r") as file:
             log = json.loads(file.read())
 
         if status_fail:
@@ -120,13 +120,13 @@ def log(status_fail,appid,spy_status):
         else:
             log['Success'] += 1
             log['spy_status'] = spy_status
-            print("log!")
-        with open("time.json","w") as file:
+            # print("log!")
+        with open("log.json","w") as file:
 
             file.write(json.dumps(log))
 def check_exist(appid,redis):
 
-    with open("time.json","r") as file:
+    with open("log.json","r") as file:
 
         log = json.loads(file.read())
         if appid in log['Fail_id'] and redis.exists(appid):
@@ -158,12 +158,10 @@ def crawl():
                     else:
                         spy_data.update(data)
                         redis.set(appid,str(spy_data))
-                        print("success",Fail)
+                        # print("success",Fail)
 
                 log(Fail,appid,spy_status)
                 time.sleep(3)
             else:
                 pass
             Fail = False
-
-crawl()
