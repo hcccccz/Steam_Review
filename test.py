@@ -1,5 +1,5 @@
-import json
-with open("time.json","r+") as file:
-    f = json.loads(file.read())
+from redis import StrictRedis
 
-    print(f)
+
+redis = StrictRedis(password="2921038")
+print(redis.get("a").decode("utf-8"))
