@@ -37,9 +37,6 @@ def steam_spy_connect(appid:int):
     return [response,status]
 
 
-    # print(type(response.text))
-    # print(response.text)  v
-
 
 def play_tracker_get_url(name:str):
 
@@ -100,15 +97,7 @@ def play_tracker_get_data(url:str):
         return data
     except:
         return None
-# l = sample_app(100)
 
-# for i in l:
-#     url = play_tracker_get_url(i['name'])
-#     if url:
-#         data = play_tracker_get_data(url)
-#         redis.hset(i["appid"],mapping=data)
-#         print("获取成功，已加入数据库")
-#         time.sleep(1)
 def log(status_fail,appid,spy_status):
         with open("log.json","r") as file:
             log = json.loads(file.read())
