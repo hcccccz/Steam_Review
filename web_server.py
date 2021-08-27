@@ -18,6 +18,6 @@ def hello_world():
         success = log['Success']
         requested = fail + success
         total = log['Total']
-        fail_rate = str(round(fail/total *100,3)) + "%"
+        fail_rate = str(round(fail/requested *100,3)) + "%"
         percent = str(round(requested/total *100,3)) + "%"
     return render_template("index.html",spy_status=spy_status,fail=fail,success=success,fail_rate=fail_rate,requested=requested,percent=percent)
