@@ -36,4 +36,7 @@ soup = BeautifulSoup(r.text,"html.parser")
 soup = soup.find("div",{"id":"historyLogContent"})
 soup = soup.find_all("div",{"class":"lg2 game","data-shop":"steam"})
 
-print(len(soup))
+print(soup[0].find("i"))
+print(soup[0].find("span",{"class":"lg2__price"}))
+
+print(soup[0].find("span",{"lg2__price lg2__price--new"}))
