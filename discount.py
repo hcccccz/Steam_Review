@@ -12,20 +12,28 @@ i = redis.get(keys[0]).decode("utf-8")
 print(json.loads(i)['name'])
 # i = json.loads(i)
 
-url = "https://api.isthereanydeal.com/v01/game/plain/list/?key=cde859f3f3547c8bf77941b2cff1e214884d9d4b&shops=steam"
+url = "https://isthereanydeal.com/game/tomclancysdivision/history/"
 #
 with open("plain.json") as file:
     plain = file.read()
 
 dic = json.loads(plain)['data']['steam']
 #
-succ = 0
-fai = 0
-for key in keys:
+# succ = 0
+# fai = 0
+# for key in keys:
+#
+#     plain2 = "app/" +key
+#     if plain2 in dic:
+#         succ += 1
+#     else:
+#         fai+=1
 
-    plain2 = "app/" +key
-    if plain2 in dic:
-        succ += 1
-    else:
-        fai+=1
-print(succ,fai)
+
+
+r = requests.get(url)
+soup = BeautifulSoup(r.text,"html.parser")
+soup = soup.find("div",{"id":"historyLogContent"})
+soup = soup.find_all("div",{"class":"lg2 game","data-shop":"steam"})
+
+print(len(soup))
