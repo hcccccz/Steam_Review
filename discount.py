@@ -4,6 +4,7 @@ from redis import StrictRedis
 import json
 import re
 import time
+import math
 api_key = "cde859f3f3547c8bf77941b2cff1e214884d9d4b"
 
 def average(l):
@@ -49,8 +50,8 @@ def soup_process(soup):
     if price_p != 0:
 
         c = cut_time
-        a = average(average_cut)
-        b= average(average_cut_duration)
+        a = round(average(average_cut),2)
+        b= math.ceil(average(average_cut_duration))
         d = average(average_price)
         print("cut_time: {},average_cut: {}, duration: {}, average_price: {}".format(c,a,b,d))
         data = {"cut_time":c,"average_cut":a,"duration":b,"average_price":d}
