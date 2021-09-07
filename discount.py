@@ -53,9 +53,11 @@ def soup_process(soup):
         b= average(average_cut_duration)
         d = average(average_price)
         print("cut_time: {},average_cut: {}, duration: {}, average_price: {}".format(c,a,b,d))
-        time.sleep(2)
+        data = {"cut_time":c,"average_cut":a,"duration":b,"average_price":d}
     else:
-        print("this game is free")
+        data = {"cut_time":0,"average_cut":0,"duration":0,"average_price":0}
+    time.sleep(2)
+    return data
 
 
 
@@ -90,15 +92,17 @@ for idx in range(len(keys)):
         soup = soup.find("div",{"id":"historyLogContent"})
 
         if soup:
-            soup_process(soup)
+            data = soup_process(soup)
         else:
-            print("no data")
+            data = {"cut_time":"NA","average_cut":"NA","duration":"NA","average_price":"NA"}
 
 
-
-
-
-#
+    origin_data = json.loads(redis.get(keys[idx]).decode("utf-8"))
+    origin_data['cut_time'] = data['cut_time']
+    origin_data['average_cut'] =data['average_cut']
+    origin_data['duration'] = data['duration']
+    origin_data['average_price'] = data['average_price']
+    redis.set(keys[idx],str(origin_data))
 # r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
 # soup = BeautifulSoup(r.text,"html.parser")
 # soup = soup.find("div",{"id":"historyLogContent"})
