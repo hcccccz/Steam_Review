@@ -98,7 +98,7 @@ def play_tracker_get_data(url:str):
     except:
         return None
 
-def log(status_fail,appid,spy_status):
+def log(status_fail,appid,spy_status,redis):
         with open("log.json","r") as file:
             log = json.loads(file.read())
 
@@ -150,7 +150,7 @@ def crawl():
                         redis.set(appid,json.dumps(spy_data))
                         # print("success",Fail)
 
-                log(Fail,appid,spy_status)
+                log(Fail,appid,spy_status,redis)
                 time.sleep(3)
             else:
                 pass
