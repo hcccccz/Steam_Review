@@ -41,7 +41,7 @@ def soup_process(soup):
                 if match:
                     day = match.group()
                 else:
-                    day = 1
+                    day = "1"
                 average_cut_duration.append(eval(day)) #average_cut_duration
                 average_price.append(min_price) #average_price
             else:
@@ -104,7 +104,7 @@ for idx in range(len(keys)):
     origin_data['duration'] = data['duration']
     origin_data['average_price'] = data['average_price']
     redis.set(keys[idx],json.dumps(origin_data))
-    
+
 # r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
 # soup = BeautifulSoup(r.text,"html.parser")
 # soup = soup.find("div",{"id":"historyLogContent"})

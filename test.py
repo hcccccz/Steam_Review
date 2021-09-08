@@ -1,6 +1,7 @@
-# from redis import StrictRedis
+from redis import StrictRedis
 import math
-# redis = StrictRedis(password="2921038")
-# redis.set("asd","123")
-print(round(0.334,2))
-print(math.ceil(7.2))
+import json
+redis = StrictRedis(password="2921038")
+d = redis.get("717840")
+d = json.loads(d.decode("utf-8"))
+print(json.dumps(d,indent=4))

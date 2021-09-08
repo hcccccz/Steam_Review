@@ -14,7 +14,7 @@ from redis import StrictRedis
 
 def sample_app(n:int):
 
-    with open("App_list.json","r") as file:
+    with open("Data/App_list.json","r") as file:
         f = json.loads(file.read())
         app_list = f['applist']['apps']
         sample = random.sample(app_list,n)
@@ -146,7 +146,7 @@ def crawl():
                         Fail = True
                     else:
                         spy_data.update(data)
-                        redis.set(appid,str(spy_data))
+                        redis.set(appid,json.dumps(spy_data))
                         # print("success",Fail)
 
                 log(Fail,appid,spy_status)

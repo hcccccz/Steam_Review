@@ -6,6 +6,7 @@ from crawl import *
 
 def app_run():
     app.run()
+    #host=ip port=port debug=True
 try:
     process1 = Process(target=crawl)
     process2 = Process(target=app_run)
