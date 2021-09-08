@@ -104,7 +104,8 @@ def log(status_fail,appid,spy_status):
 
         if status_fail:
             log['Fail'] += 1
-            log['Fail_id'].append(appid)
+            redis.set(appid,json.dumps({"Fail"})
+            # log['Fail_id'].append(appid)
             log['spy_status'] = spy_status
         else:
             log['Success'] += 1

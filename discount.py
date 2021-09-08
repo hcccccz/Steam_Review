@@ -65,7 +65,7 @@ def soup_process(soup):
 redis = StrictRedis(password="2921038")
 
 keys = [ i.decode("utf-8") for i in redis.keys()]
-i = redis.get(keys[0]).decode("utf-8")
+
 
 # i = json.loads(i)
 
@@ -81,8 +81,10 @@ for idx in range(len(keys)):
 
     free = False
     id = "app/" +keys[idx]
-    if id in plain_map:
-        data = json.loads(redis.get(keys[idx]).decode("utf-8"))
+    origin_data = json.loads(redis.get(keys[idx]).decode("utf-8"))
+    d_len = len(origin_data)
+    if id in plain_map and d_len == 29:
+
         plain = plain_map[id]
         url = "https://isthereanydeal.com/game/" +plain + "/history/"
         #https://isthereanydeal.com/game/driftgearracingfree/history/
@@ -98,14 +100,13 @@ for idx in range(len(keys)):
             data = {"cut_time":"NA","average_cut":"NA","duration":"NA","average_price":"NA"}
 
 
-    origin_data = json.loads(redis.get(keys[idx]).decode("utf-8"))
-    origin_data['cut_time'] = data['cut_time']
-    origin_data['average_cut'] =data['average_cut']
-    origin_data['duration'] = data['duration']
-    origin_data['average_price'] = data['average_price']
-    redis.set(keys[idx],json.dumps(origin_data))
+        origin_data['cut_time'] = data['cut_time']
+        origin_data['average_cut'] =data['average_cut']
+        origin_data['duration'] = data['duration']
+        origin_data['average_price'] = data['average_price']
+        redis.set(keys[idx],json.dumps(origin_data))
 
-# r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
+    # r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
 # soup = BeautifulSoup(r.text,"html.parser")
 # soup = soup.find("div",{"id":"historyLogContent"})
 # soup_process(soup)
