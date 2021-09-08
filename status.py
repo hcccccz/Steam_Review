@@ -11,7 +11,7 @@ import json
 
 redis = StrictRedis(password = "2921038")
 status = []
-redis.set("123",json.dumps(['fail']))
+
 keys = redis.keys()
 for key in keys:
     ob = json.loads(redis.get(key).decode("utf-8"))
