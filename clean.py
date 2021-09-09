@@ -50,7 +50,7 @@ def clean(before):
 
 for key in keys:
     data = json.loads(redis.get(key).decode("utf-8"))
-    if data[0] == 'Fail' or len(data) == 29:
+    if isinstance(data,list) or len(data) == 29:
         pass
     else:
         pack = clean(data)
