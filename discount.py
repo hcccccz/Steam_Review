@@ -116,7 +116,8 @@ for idx in range(len(keys)):
         origin_data['duration'] = data['duration']
         origin_data['average_price'] = data['average_price']
         redis.set(keys[idx],json.dumps(origin_data))
-
+    else:
+        print("no in plain")
     # r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
 # soup = BeautifulSoup(r.text,"html.parser")
 # soup = soup.find("div",{"id":"historyLogContent"})
