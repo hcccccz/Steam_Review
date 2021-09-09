@@ -50,9 +50,7 @@ def clean(before):
 
 for key in keys:
     data = json.loads(redis.get(key).decode("utf-8"))
-    if isinstance(data,list) or len(data) == 29:
-        pass
-    else:
+    if len(data) == 25 or len(data) == 26:
         pack = clean(data)
         if pack[1] == True:
             redis.delete(key)
