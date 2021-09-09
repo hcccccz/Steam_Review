@@ -65,25 +65,16 @@ def soup_process(soup):
 redis = StrictRedis(password="2921038")
 
 keys = [ i.decode("utf-8") for i in redis.keys()]
-print(len(keys))
+keys_to_remove = []
 for key in keys:
     item = json.loads(redis.get(key).decode("utf-8"))
     if len(item) == 33 or len(item) ==1:
-        # print(len(item))
-        keys.remove(key)
+
+        keys_to_remove.append(key)
+for key in keys_to_remove:
+    keys.remove(key)
 print(len(keys))
 
-status = []
-for key in keys:
-    ob = json.loads(redis.get(key).decode("utf-8"))
-    status.append(len(ob))
-freq = {}
-for item in status:
-    if item in freq:
-        freq[item] += 1
-    else:
-        freq[item] = 1
-print(json.dumps(freq,indent=4))
 
 # i = json.loads(i)
 
@@ -107,7 +98,7 @@ plain_map = json.loads(plain)['data']['steam']
 #         url = "https://isthereanydeal.com/game/" +plain + "/history/"
 #         #https://isthereanydeal.com/game/driftgearracingfree/history/
 #
-#         print(idx,":",plain)
+        # print("{}:{} at {}".format(idx,plain,len(keys)))
 #         r = requests.get(url)
 #         soup = BeautifulSoup(r.text,"html.parser")
 #         soup = soup.find("div",{"id":"historyLogContent"})

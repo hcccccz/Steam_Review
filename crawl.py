@@ -119,7 +119,7 @@ def check_exist(appid,redis):
     with open("log.json","r") as file:
 
         log = json.loads(file.read())
-        if appid in log['Fail_id'] and redis.exists(appid):
+        if appid in log['Fail_id'] or redis.exists(appid):
             return False
         else:
             return True
