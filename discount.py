@@ -54,7 +54,7 @@ def soup_process(soup):
         a = round(average(average_cut),2)
         b= math.ceil(average(average_cut_duration))
         d = round(average(average_price),2)
-        # print("cut_time: {},average_cut: {}, duration: {}, average_price: {}".format(c,a,b,d))
+        print("cut_time: {},average_cut: {}, duration: {}, average_price: {}".format(c,a,b,d))
         data = {"cut_time":c,"average_cut":a,"duration":b,"average_price":d}
     else:
         data = {"cut_time":0,"average_cut":0,"duration":0,"average_price":0}
@@ -88,7 +88,7 @@ with open("plain.json") as file:
 plain_map = json.loads(plain)['data']['steam']
 #
 #
-for idx in tqdm(range(len(keys))):
+for idx in (range(len(keys)):
 
     free = False
     id = "app/" +keys[idx]
@@ -100,7 +100,7 @@ for idx in tqdm(range(len(keys))):
         url = "https://isthereanydeal.com/game/" +plain + "/history/"
         #https://isthereanydeal.com/game/driftgearracingfree/history/
 
-        # print("{}:{} at {}".format(idx,plain,len(keys)))
+        print("{}:{} at {}".format(idx,plain,len(keys)))
         r = requests.get(url)
         soup = BeautifulSoup(r.text,"html.parser")
         soup = soup.find("div",{"id":"historyLogContent"})
