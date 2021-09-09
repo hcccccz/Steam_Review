@@ -16,7 +16,7 @@ def hello_world():
         fail = log["Fail"]
         spy_status= log['spy_status']
         success = log['Success']
-        requested = fail + success
+        requested = redis.dbsize()
         total = log['Total']
         fail_rate = str(round(fail/requested *100,3)) + "%"
         percent = str(round(requested/total *100,3)) + "%"

@@ -17,12 +17,12 @@ def remove_key(dict_ob,key):
 redis = StrictRedis(password="2921038")
 keys  = redis.keys()
 
-def clean(data)
+def clean(before):
     converter = {'Aug':8,'Jan':1,'Dec':12,'Apr':4,'Sep':9,'Mar':3,'Jun':6,'May':5,'Feb':2,'Nov':11,'Oct':10,'Jul':7}
     pattern = re.compile(r'[A-Za-z]{3}\s\d+?,\s\d{4}')
     pattern1 = re.compile(r'\s(\d+?),\s')
 
-    before = json.loads(data)
+
     if len(before) == 26:
         before = remove_key(before,"average achievements")
     # print(len(before))
@@ -49,12 +49,12 @@ def clean(data)
     return [before,data_no] #before is dict
 
 for key in keys:
-    data = redis.get(key).decode("utf-8")
-    if data == "['Fail']":
+    data = json.loads(redis.get(key).decode("utf-8"))
+    if data[0] == 'Fail' or len(data) == 29:
         pass
     else:
         pack = clean(data)
         if pack[1] == True:
             redis.delete(key)
         else:
-            redis.set(key,json.dumps(pack[0])
+            redis.set(key,json.dumps(pack[0]))
