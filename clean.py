@@ -42,6 +42,7 @@ def clean(before):
         date = datetime(year,month,day)
         days_from_release  = datetime(2021,8,26) - date
         before['days_from_release'] = days_from_release.days
+    print(before['languages'])
     before['languages_supports'] = len(before['languages'].split(","))
     review_num = before['positive'] +before['negative']
     before['review_num'] = review_num
