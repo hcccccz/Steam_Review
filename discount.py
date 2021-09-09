@@ -65,10 +65,10 @@ def soup_process(soup):
 redis = StrictRedis(password="2921038")
 
 keys = [ i.decode("utf-8") for i in redis.keys()]
-
+print(len(keys))
 for key in keys:
     item = json.loads(redis.get(key).decode("utf-8"))
-    if len(item) != 29:
+    if len(item) == 33 or len(item) ==1:
         keys.remove(key)
 print(len(keys))
 # i = json.loads(i)
