@@ -72,6 +72,19 @@ for key in keys:
         # print(len(item))
         keys.remove(key)
 print(len(keys))
+
+for key in keys:
+    ob = json.loads(redis.get(key).decode("utf-8"))
+    status.append(len(ob))
+
+freq = {}
+for item in status:
+    if item in freq:
+        freq[item] += 1
+    else:
+        freq[item] = 1
+print(json.dumps(freq,indent=4))
+
 # i = json.loads(i)
 
 url = "https://isthereanydeal.com/game/tomclancysdivision/history/"
