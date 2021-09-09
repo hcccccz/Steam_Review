@@ -88,7 +88,7 @@ with open("plain.json") as file:
 plain_map = json.loads(plain)['data']['steam']
 #
 #
-for idx in range(len(keys)):
+for idx in tqdm(range(len(keys))):
 
     free = False
     id = "app/" +keys[idx]
