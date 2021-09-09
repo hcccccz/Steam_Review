@@ -69,6 +69,7 @@ print(len(keys))
 for key in keys:
     item = json.loads(redis.get(key).decode("utf-8"))
     if len(item) == 33 or len(item) ==1:
+        print(len(item))
         keys.remove(key)
 print(len(keys))
 # i = json.loads(i)
