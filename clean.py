@@ -45,7 +45,10 @@ def clean(before):
     before['languages_supports'] = len(before['languages'].split(","))
     review_num = before['positive'] +before['negative']
     before['review_num'] = review_num
-    before['positive_rate'] = round(before['positive']/review_num,2)
+    if review_num != 0:
+        before['positive_rate'] = round(before['positive']/review_num,2)
+    else:
+        before['positive_rate'] = 0
     return [before,data_no] #before is dict
 
 for key in keys:
