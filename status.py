@@ -17,4 +17,10 @@ for key in keys:
     ob = json.loads(redis.get(key).decode("utf-8"))
     status.append(len(ob))
 
-print(set(status))
+freq = {}
+for item in status:
+    if item in freq:
+        freq[item] += 1
+    else:
+        freq[item] = 1
+print(json.dumps(freq,indent=4))
