@@ -32,7 +32,7 @@ def clean(before):
     before['price'] = eval(price)/100
     m = pattern.match(date)
     if not m:
-        date_no = True
+        data_no = True
     else:
         data_no = False
         month = converter[date[0:3]] #month
