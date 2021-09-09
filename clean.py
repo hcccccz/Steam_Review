@@ -26,10 +26,10 @@ def clean(before):
     if len(before) == 26:
         before = remove_key(before,"average achievements")
     price = before['price']
-    print(type(price))
-
+    # print(type(price))
+    if price:
+        before['price'] = eval(price)/100
     date = before['release_date']
-    before['price'] = eval(price)/100
     m = pattern.match(date)
     if not m:
         data_no = True
