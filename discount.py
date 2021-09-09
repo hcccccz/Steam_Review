@@ -66,7 +66,11 @@ redis = StrictRedis(password="2921038")
 
 keys = [ i.decode("utf-8") for i in redis.keys()]
 
-
+for key in keys:
+    item = json.loads(redis.get(key).decode("utf-8"))
+    if len(item) != 29:
+        keys.remove(key)
+print(len(keys))
 # i = json.loads(i)
 
 url = "https://isthereanydeal.com/game/tomclancysdivision/history/"
