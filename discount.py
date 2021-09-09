@@ -80,36 +80,36 @@ with open("plain.json") as file:
 
 plain_map = json.loads(plain)['data']['steam']
 #
-
-for idx in range(len(keys)):
-
-    free = False
-    id = "app/" +keys[idx]
-    origin_data = json.loads(redis.get(keys[idx]).decode("utf-8"))
-    d_len = len(origin_data)
-    if id in plain_map and d_len == 29:
-
-        plain = plain_map[id]
-        url = "https://isthereanydeal.com/game/" +plain + "/history/"
-        #https://isthereanydeal.com/game/driftgearracingfree/history/
-
-        print(idx,":",plain)
-        r = requests.get(url)
-        soup = BeautifulSoup(r.text,"html.parser")
-        soup = soup.find("div",{"id":"historyLogContent"})
-
-        if soup:
-            data = soup_process(soup)
-        else:
-            data = {"cut_time":"NA","average_cut":"NA","duration":"NA","average_price":"NA"}
-
-
-        origin_data['cut_time'] = data['cut_time']
-        origin_data['average_cut'] =data['average_cut']
-        origin_data['duration'] = data['duration']
-        origin_data['average_price'] = data['average_price']
-        redis.set(keys[idx],json.dumps(origin_data))
-
+#
+# for idx in range(len(keys)):
+#
+#     free = False
+#     id = "app/" +keys[idx]
+#     origin_data = json.loads(redis.get(keys[idx]).decode("utf-8"))
+#     d_len = len(origin_data)
+#     if id in plain_map and d_len == 29:
+#
+#         plain = plain_map[id]
+#         url = "https://isthereanydeal.com/game/" +plain + "/history/"
+#         #https://isthereanydeal.com/game/driftgearracingfree/history/
+#
+#         print(idx,":",plain)
+#         r = requests.get(url)
+#         soup = BeautifulSoup(r.text,"html.parser")
+#         soup = soup.find("div",{"id":"historyLogContent"})
+#
+#         if soup:
+#             data = soup_process(soup)
+#         else:
+#             data = {"cut_time":"NA","average_cut":"NA","duration":"NA","average_price":"NA"}
+#
+#
+#         origin_data['cut_time'] = data['cut_time']
+#         origin_data['average_cut'] =data['average_cut']
+#         origin_data['duration'] = data['duration']
+#         origin_data['average_price'] = data['average_price']
+#         redis.set(keys[idx],json.dumps(origin_data))
+#
     # r = requests.get("https://isthereanydeal.com/game/dungeonfighteronline/history/")
 # soup = BeautifulSoup(r.text,"html.parser")
 # soup = soup.find("div",{"id":"historyLogContent"})
