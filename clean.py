@@ -25,8 +25,8 @@ def clean(before):
 
     if len(before) == 26:
         before = remove_key(before,"average achievements")
-    print(type(price))
     price = before['price']
+    print(type(price))
 
     date = before['release_date']
     before['price'] = eval(price)/100
