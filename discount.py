@@ -73,10 +73,10 @@ for key in keys:
         keys.remove(key)
 print(len(keys))
 
+status = []
 for key in keys:
     ob = json.loads(redis.get(key).decode("utf-8"))
     status.append(len(ob))
-status = []
 freq = {}
 for item in status:
     if item in freq:
