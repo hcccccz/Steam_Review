@@ -25,3 +25,4 @@ for item in tqdm(status):
     else:
         freq[item] = 1
 print(json.dumps(freq,indent=4))
+##a
