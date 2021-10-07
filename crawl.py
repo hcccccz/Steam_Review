@@ -155,3 +155,6 @@ def crawl():
             else:
                 pass
             Fail = False
+
+data = play_tracker_get_data("https://playtracker.net/insight/game/2")
+print(data)
