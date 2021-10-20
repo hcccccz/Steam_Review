@@ -18,7 +18,7 @@ for key in tqdm.tqdm(keys):
         o_0.append(ob)
 
 fieldnames = list(o_0[0].keys())
-with open("Steam1.csv","w") as file:
+with open("Steam_oct18.csv","w") as file:
     writer = csv.DictWriter(file, fieldnames=fieldnames)
     writer.writeheader()
     for i in o_0:
